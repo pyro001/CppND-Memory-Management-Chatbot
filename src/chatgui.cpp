@@ -136,7 +136,7 @@ ChatBotPanelDialog::~ChatBotPanelDialog()
     //// STUDENT CODE
     ////
 //** fixed bug which lead to seg fault
-    //delete _chatLogic;
+    delete _chatLogic;
 
     ////
     //// EOF STUDENT CODE
