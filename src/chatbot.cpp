@@ -42,7 +42,7 @@ ChatBot::ChatBot(ChatBot &CopyInput)
     _image =new wxBitmap(*CopyInput._image);
 }
 //Move constructor
-ChatBot::ChatBot(ChatBot &CopyInput)
+ChatBot::ChatBot(ChatBot &&CopyInput)
 {
     std::cout << "ChatBot  Move Constructor" << std::endl;
     
@@ -59,7 +59,6 @@ ChatBot::ChatBot(ChatBot &CopyInput)
 }
 
 
-}
 
 ChatBot::~ChatBot()
 {
@@ -72,6 +71,30 @@ ChatBot::~ChatBot()
         _image = NULL;
     }
 }
+ChatBot &ChatBot::operator=(const ChatBot &CopyInput) //  copy assignment operator
+    {
+        std::cout << "ChatBot Copy Assignment" << std::endl;
+        if (this == &CopyInput)
+            return *this;
+        delete _image;
+        _image = new wxBitmap(*CopyInput._image);
+        _chatLogic = CopyInput._chatLogic;
+        _rootNode = CopyInput._rootNode;
+        _currentNode = CopyInput._currentNode;
+        return *this;
+    }
+ChatBot &ChatBot::operator=(const ChatBot &&CopyInput) // move assignment operator
+    {
+        std::cout << "ChatBot move Assignment op" << std::endl;
+        if (this == &CopyInput)
+            return *this;
+        delete _image;
+        _image = new wxBitmap(*CopyInput._image);
+        _chatLogic = CopyInput._chatLogic;
+        _rootNode = CopyInput._rootNode;
+        _currentNode = CopyInput._currentNode;
+        return *this;
+    }
 
 //// STUDENT CODE
 ////

@@ -132,15 +132,7 @@ ChatBotPanelDialog::ChatBotPanelDialog(wxWindow *parent, wxWindowID id)
 }
 
 ChatBotPanelDialog::~ChatBotPanelDialog()
-{
-    //// STUDENT CODE
-    ////
-//** fixed bug which lead to seg fault
-    delete _chatLogic;
-
-    ////
-    //// EOF STUDENT CODE
-}
+{}
 
 void ChatBotPanelDialog::AddDialogItem(wxString text, bool isFromUser)
 {
