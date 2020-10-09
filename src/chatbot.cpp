@@ -2,7 +2,7 @@
 #include <random>
 #include <algorithm>
 #include <ctime>
-
+#include <memory>
 #include "chatlogic.h"
 #include "graphnode.h"
 #include "graphedge.h"
@@ -26,9 +26,39 @@ ChatBot::ChatBot(std::string filename)
     _chatLogic = nullptr;
     _rootNode = nullptr;
 
-    // load image into heap memory
+    // load image into heap memory 
     _image = new wxBitmap(filename, wxBITMAP_TYPE_PNG);
 }
+//Copy constructor
+ChatBot::ChatBot(ChatBot &CopyInput)
+{
+    std::cout << "ChatBot  Copy Constructor" << std::endl;
+    
+    // invalidate data handles
+    _chatLogic = CopyInput._chatLogic;
+    _rootNode = CopyInput._rootNode;
+
+    // load image into heap memory from source
+    _image =new wxBitmap(*CopyInput._image);
+}
+//Move constructor
+ChatBot::ChatBot(ChatBot &&CopyInput)
+{
+    std::cout << "ChatBot  Move Constructor" << std::endl;
+    
+    // Copy data handles
+    _chatLogic = CopyInput._chatLogic;
+    _rootNode = CopyInput._rootNode;
+
+    // Copy image from source
+    _image = CopyInput._image;
+    // now that everything is copied over , remove source data
+    CopyInput._image = nullptr;
+    CopyInput._chatLogic = nullptr;
+    CopyInput._rootNode = nullptr;
+}
+
+
 
 ChatBot::~ChatBot()
 {
@@ -41,6 +71,30 @@ ChatBot::~ChatBot()
         _image = NULL;
     }
 }
+ChatBot &ChatBot::operator=(const ChatBot &CopyInput) //  copy assignment operator
+    {
+        std::cout << "ChatBot Copy Assignment" << std::endl;
+        if (this == &CopyInput)
+            return *this;
+        delete _image;
+        _image = new wxBitmap(*CopyInput._image);
+        _chatLogic = CopyInput._chatLogic;
+        _rootNode = CopyInput._rootNode;
+        _currentNode = CopyInput._currentNode;
+        return *this;
+    }
+ChatBot &ChatBot::operator=(const ChatBot &&CopyInput) // move assignment operator
+    {
+        std::cout << "ChatBot move Assignment op" << std::endl;
+        if (this == &CopyInput)
+            return *this;
+        delete _image;
+        _image = new wxBitmap(*CopyInput._image);
+        _chatLogic = CopyInput._chatLogic;
+        _rootNode = CopyInput._rootNode;
+        _currentNode = CopyInput._currentNode;
+        return *this;
+    }
 
 //// STUDENT CODE
 ////
