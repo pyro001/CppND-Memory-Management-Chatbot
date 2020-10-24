@@ -28,7 +28,7 @@ public:
     ChatBot(ChatBot &CopyInput); //copy constructor        
     ChatBot(ChatBot &&CopyInput); //Move constructor 
     ChatBot &operator= (const ChatBot &CopyInput);// copy asignment operator overload
-    ChatBot &operator= (const ChatBot &&CopyInput);//move assignment operator overload 
+    ChatBot &operator= (ChatBot &&CopyInput);//move assignment operator overload 
                
     ChatBot(std::string filename); // constructor WITH memory allocation
     ~ChatBot();
