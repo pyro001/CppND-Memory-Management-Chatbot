@@ -29,9 +29,14 @@ void GraphNode::AddEdgeToParentNode(GraphEdge* edge)
 }
 
 void GraphNode::AddEdgeToChildNode(std::unique_ptr<GraphEdge> edge)
+
 {
-    _childEdges.push_back(std::move(edge));//fixed so that the ownership 
-    //of the edge is with graphnode
+//std::move() is a cast that produces an rvalue-reference to an object, to enable moving from it.
+    _childEdges.push_back(std::move(edge));
+    //nothing else worked . why?
+//answer :https://www.xspdf.com/resolution/51743424.html  C++ move unique pointer to vector
+    
+    
 }
 
 //// STUDENT CODE
