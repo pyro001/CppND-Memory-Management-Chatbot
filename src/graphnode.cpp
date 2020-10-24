@@ -1,8 +1,9 @@
 #include "graphedge.h"
 #include "graphnode.h"
-
+#include <iostream>
 GraphNode::GraphNode(int id)
-{
+{ 
+    std::cout << "graphnode construction\n";
     _id = id;
 }
 
@@ -10,8 +11,8 @@ GraphNode::~GraphNode()
 {
     //// STUDENT CODE
     ////
-
-   // delete _chatBot; 
+    std::cout << "graphnode Destruction\n";
+   // delete _chatBot;
 
     ////
     //// EOF STUDENT CODE
