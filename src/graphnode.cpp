@@ -23,14 +23,20 @@ void GraphNode::AddToken(std::string token)
     _answers.push_back(token);
 }
 
-void GraphNode::AddEdgeToParentNode(GraphEdge *edge)
+void GraphNode::AddEdgeToParentNode(GraphEdge* edge)
 {
     _parentEdges.push_back(edge);
 }
 
-void GraphNode::AddEdgeToChildNode(GraphEdge *edge)
+void GraphNode::AddEdgeToChildNode(std::unique_ptr<GraphEdge> edge)
+
 {
-    _childEdges.push_back(edge);
+//std::move() is a cast that produces an rvalue-reference to an object, to enable moving from it.
+    _childEdges.push_back(std::move(edge));
+    //nothing else worked . why?
+//answer :https://www.xspdf.com/resolution/51743424.html  C++ move unique pointer to vector
+    
+    
 }
 
 //// STUDENT CODE
@@ -53,8 +59,8 @@ GraphEdge *GraphNode::GetChildEdgeAtIndex(int index)
 {
     //// STUDENT CODE
     ////
-
-    return _childEdges[index];
+//.get beause of the unique pointer 
+    return _childEdges[index].get();
 
     ////
     //// EOF STUDENT CODE
