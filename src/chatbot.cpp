@@ -11,7 +11,7 @@
 // constructor WITHOUT memory allocation
 ChatBot::ChatBot()
 {
-    std::cout << "constructor WITHOUT memory allocation";
+    // std::cout << "constructor WITHOUT memory allocation\n";
     // invalidate data handles
     _image = nullptr;
     _chatLogic = nullptr;
@@ -21,7 +21,7 @@ ChatBot::ChatBot()
 // constructor WITH memory allocation
 ChatBot::ChatBot(std::string filename)
 {
-    std::cout << "ChatBot Constructor WITH memory allocation" << std::endl;
+    std::cout << "\nChatBot Constructor WITH memory allocation\n" << std::endl;
 
     // invalidate data handles
     _chatLogic = nullptr;
@@ -53,6 +53,9 @@ ChatBot::ChatBot(ChatBot &&CopyInput)
 
     // Copy image from source
     _image = CopyInput._image;
+
+///this line was causing a segfault:https://knowledge.udacity.com/questions/131653/
+    _chatLogic->SetChatbotHandle(this);
     // now that everything is copied over , remove source data
     CopyInput._image = nullptr;
     CopyInput._chatLogic = nullptr;
@@ -62,6 +65,11 @@ ChatBot::ChatBot(ChatBot &&CopyInput)
 ChatBot::~ChatBot()
 {
     std::cout << "ChatBot Destructor" << std::endl;
+     if (_image != NULL) // Attention: wxWidgets used NULL and not nullptr
+    {
+        delete _image;
+        _image = NULL;
+    }
 }
 ChatBot &ChatBot::operator=(const ChatBot &CopyInput) //  copy assignment operator
 {
@@ -85,6 +93,8 @@ ChatBot &ChatBot::operator=(ChatBot &&CopyInput) // move assignment operator
     _chatLogic = CopyInput._chatLogic;
     _rootNode = CopyInput._rootNode;
     _currentNode = CopyInput._currentNode;
+///this line was causing a segfault:https://knowledge.udacity.com/questions/131653
+    _chatLogic->SetChatbotHandle(this);
     CopyInput._image = nullptr;
     CopyInput._chatLogic = nullptr;
     CopyInput._rootNode = nullptr;
