@@ -76,7 +76,8 @@ ChatBot &ChatBot::operator=(const ChatBot &CopyInput) //  copy assignment operat
     std::cout << "ChatBot Copy Assignment" << std::endl;
     if (this == &CopyInput)
         return *this;
-    delete _image;
+   
+    // load image into heap memory from source
     _image = new wxBitmap(*CopyInput._image);
     _chatLogic = CopyInput._chatLogic;
     _rootNode = CopyInput._rootNode;
