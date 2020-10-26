@@ -88,7 +88,7 @@ ChatBot &ChatBot::operator=(ChatBot &&CopyInput) // move assignment operator
     std::cout << "ChatBot move Assignment op" << std::endl;
     if (this == &CopyInput)
         return *this;
-    delete _image;
+    // delete _image;
     _image = new wxBitmap(*CopyInput._image);
     _chatLogic = CopyInput._chatLogic;
     _rootNode = CopyInput._rootNode;
