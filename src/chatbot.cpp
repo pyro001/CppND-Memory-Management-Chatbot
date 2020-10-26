@@ -89,10 +89,11 @@ ChatBot &ChatBot::operator=(ChatBot &&CopyInput) // move assignment operator
     if (this == &CopyInput)
         return *this;
     // delete _image;
-    _image = new wxBitmap(*CopyInput._image);
+    // _image = new wxBitmap(*CopyInput._image);
     _chatLogic = CopyInput._chatLogic;
     _rootNode = CopyInput._rootNode;
     _currentNode = CopyInput._currentNode;
+    _image = CopyInput._image;
 ///this line was causing a segfault:https://knowledge.udacity.com/questions/131653
     _chatLogic->SetChatbotHandle(this);
     CopyInput._image = nullptr;
